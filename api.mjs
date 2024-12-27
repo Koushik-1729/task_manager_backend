@@ -4,11 +4,24 @@ import dotenv from 'dotenv';
 import connectDB from './src/config/db.mjs';
 import taskRoutes from './src/routes/taskRoutes.mjs';
 dotenv.config();
-// Connect to the database
 connectDB();
-// Initialize Express app
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
+const allowedOrigins = [
+  'http://localhost:3000',        
+  'https://task-manager-frontend-6b94.vercel.app',
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors(corsOptions));
 // Parse incoming JSON requests
 app.use(express.json());
 // Task routes
