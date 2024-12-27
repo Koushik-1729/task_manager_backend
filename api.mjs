@@ -9,6 +9,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',        
   'https://task-manager-frontend-6b94.vercel.app',
+  'https://fcb8939.railway.app'
 ];
 
 const corsOptions = {
