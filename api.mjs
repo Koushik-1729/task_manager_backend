@@ -7,7 +7,14 @@ dotenv.config();
 connectDB();
 // Initialize Express app
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
+
+const corsOptions = {
+  origin: ['https://task-manager-frontend-6b94.vercel.app'], // Add both frontend URLs
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+};
+
+app.use(cors(corsOptions));
 // Parse incoming JSON requests
 app.use(express.json());
 // Task routes
