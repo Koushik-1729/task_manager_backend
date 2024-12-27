@@ -5,8 +5,8 @@ const taskSchema = new mongoose.Schema({
     description: { type: String, default: '' },
     status: {
         type: String,
-        enum: ['Pending', 'In Progress', 'Completed'],  // Enforcing specific values for the status
-        default: 'Pending'  // Optional: Set default value
+        enum: ['Pending', 'In Progress', 'Completed'],
+        default: 'Pending'
     },
     created_at: { type: Date, default: Date.now },
 });
