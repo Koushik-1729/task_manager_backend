@@ -5,24 +5,9 @@ import connectDB from './src/config/db.mjs';
 import taskRoutes from './src/routes/taskRoutes.mjs';
 dotenv.config();
 connectDB();
+// Initialize Express app
 const app = express();
-const allowedOrigins = [
-  'http://localhost:3000',        
-  'https://task-manager-frontend-6b94.vercel.app',
-  'https://fcb8939.railway.app'
-];
-
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-};
-
-app.use(cors(corsOptions));
+app.use(cors({ origin: 'http://localhost:3000' }));
 // Parse incoming JSON requests
 app.use(express.json());
 // Task routes
@@ -32,7 +17,7 @@ app.use((err, req, res, next) => {
     const message = err.message || 'Internal Server Error';
     res.status(statusCode).json({ message });
 });
-const PORT = process.env.PORT||5000;
+const PORT = process.env.PORT;
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
